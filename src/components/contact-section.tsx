@@ -35,14 +35,12 @@ const contactInfo = [
 
 interface ContactFormData {
   name: string;
-  email: string;
   phone: string;
   message: string;
 }
 
 interface ContactFormErrors {
   name?: string;
-  email?: string;
   phone?: string;
   message?: string;
 }
@@ -72,7 +70,6 @@ export default function ContactSection() {
   }, []);
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
-    email: '',
     phone: '',
     message: '',
   });
@@ -82,11 +79,6 @@ export default function ContactSection() {
   const validateForm = (): boolean => {
     const newErrors: ContactFormErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      newErrors.email = 'Enter a valid email address';
-    }
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
     } else if (!/^\d{10}$/.test(formData.phone.trim())) {
@@ -113,7 +105,7 @@ export default function ContactSection() {
           title: 'Message Sent Successfully!',
           description: 'Thank you for reaching out. We will get back to you within 24 hours.',
         });
-        setFormData({ name: '', email: '', phone: '', message: '' });
+        setFormData({ name: '', phone: '', message: '' });
         setErrors({});
       }
     } catch {
@@ -220,26 +212,6 @@ export default function ContactSection() {
                     />
                     {errors.name && (
                       <p className="text-sm text-red-500">{errors.name}</p>
-                    )}
-                  </div>
-
-                  {/* Email */}
-                  <div className="space-y-2">
-                    <Label htmlFor="contact-email" className="text-arastu-dark font-medium">
-                      Email Address <span className="text-red-500">*</span>
-                    </Label>
-                    <Input
-                      id="contact-email"
-                      type="email"
-                      placeholder="Enter your email address"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className={`h-12 sm:h-auto ${errors.email ? 'border-red-500' : ''}`}
-                    />
-                    {errors.email && (
-                      <p className="text-sm text-red-500">{errors.email}</p>
                     )}
                   </div>
 
