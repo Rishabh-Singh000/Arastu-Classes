@@ -80,7 +80,7 @@ export default function EducatorsSection() {
                   </div>
 
                   {/* Name */}
-                  <h3 className="text-base sm:text-lg font-bold text-arastu-dark group-hover:text-arastu-orange transition-colors duration-300">
+                  <h3 className="text-base sm:text-lg font-bold text-arastu-dark">
                     {educator.name}
                   </h3>
 
