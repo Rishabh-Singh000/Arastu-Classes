@@ -29,11 +29,11 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left">
+        <div className="max-w-3xl mx-auto text-center">
           {/* Floating Badge */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-6"
           >
@@ -68,7 +68,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
-            className="text-sm sm:text-base md:text-lg text-gray-300 mb-8 max-w-full md:max-w-xl leading-relaxed mx-auto md:mx-0"
+            className="text-sm sm:text-base md:text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
           >
             Comprehensive preparation for AISSEE (Sainik School) and JNVST (Jawahar
             Navodaya Vidyalaya) entrance exams. Join thousands of successful students
@@ -80,7 +80,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9 }}
-            className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 mb-10 md:mb-12 w-full sm:w-auto"
+            className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4 mb-10 md:mb-12 w-full sm:w-auto"
           >
             <a href="#courses" className="w-full sm:w-auto">
               <Button
@@ -106,10 +106,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.1 }}
-            className="grid grid-cols-3 gap-3 sm:gap-4 md:flex md:gap-8 text-center md:text-left"
+            className="grid grid-cols-3 gap-3 sm:gap-4 md:flex md:justify-center md:gap-8 text-center"
           >
             {trustBadges.map((badge, index) => (
-              <div key={index} className="flex items-center gap-2 sm:gap-3 justify-center md:justify-start">
+              <div key={index} className="flex items-center gap-2 sm:gap-3 justify-center">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center shrink-0">
                   <badge.icon className="size-5 sm:size-6 text-arastu-orange" />
                 </div>
