@@ -15,7 +15,7 @@ export default function MobileBottomBar() {
         <div className="flex items-stretch">
           {/* Call Now */}
           <a
-            href="tel:+919876543210"
+            href="tel:+917651867107"
             className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-arastu-green hover:bg-green-700 transition-colors touch-target"
             aria-label="Call Now"
           >
@@ -28,7 +28,7 @@ export default function MobileBottomBar() {
 
           {/* WhatsApp */}
           <a
-            href="https://wa.me/919876543210?text=Hello%20Sir%2C%20I%20would%20like%20information%20regarding%20admissions."
+            href="https://wa.me/917651867107?text=Hello%20Sir%2C%20I%20would%20like%20information%20regarding%20admissions."
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] transition-colors touch-target"

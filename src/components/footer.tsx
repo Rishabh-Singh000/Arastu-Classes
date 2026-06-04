@@ -108,12 +108,12 @@ export default function Footer() {
               <li className="flex items-start gap-3 sm:justify-start justify-center">
                 <MapPin className="size-4 text-arastu-orange shrink-0 mt-0.5" />
                 <span className="text-sm text-gray-400">
-                  Arastu Classes Building, Main Road, Near Bus Stand, District - 250001
+                  Laxmi Market, Near Gorakhpur Airport,<br />Sainik Kunj, Nanda Nagar,<br />Gorakhpur, UP - 273008
                 </span>
               </li>
               <li className="flex items-center gap-3 sm:justify-start justify-center">
                 <Phone className="size-4 text-arastu-orange shrink-0" />
-                <span className="text-sm text-gray-400">+91 98765 43210</span>
+                <span className="text-sm text-gray-400">+91 76518 67107</span>
               </li>
               <li className="flex items-center gap-3 sm:justify-start justify-center">
                 <Mail className="size-4 text-arastu-orange shrink-0" />

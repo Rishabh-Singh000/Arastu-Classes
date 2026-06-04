@@ -14,12 +14,12 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Our Center',
-    details: ['Arastu Classes Building', 'Main Road, Near Bus Stand', 'District - 250001'],
+    details: ['Laxmi Market, Near Gorakhpur Airport', 'Sainik Kunj, Nanda Nagar', 'Gorakhpur, UP - 273008'],
   },
   {
     icon: Phone,
     title: 'Phone',
-    details: ['+91 98765 43210', '+91 87654 32109'],
+    details: ['+91 76518 67107'],
   },
   {
     icon: Mail,
@@ -160,13 +160,18 @@ export default function ContactSection() {
               ))}
             </div>
 
-            {/* Map Placeholder */}
-            <div className="w-full h-40 sm:h-48 md:h-64 rounded-xl bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-200">
-              <div className="text-center">
-                <MapPin className="size-10 text-arastu-orange mx-auto mb-2" />
-                <p className="font-semibold text-arastu-dark">Visit Our Center</p>
-                <p className="text-sm text-muted-foreground">Map integration coming soon</p>
-              </div>
+            {/* Google Map Embed */}
+            <div className="w-full h-48 sm:h-56 md:h-72 rounded-xl overflow-hidden border-2 border-gray-200 shadow-sm">
+              <iframe
+                src="https://www.google.com/maps?q=Laxmi+Market+near+Gorakhpur+Airport+Sainik+Kunj+Nanda+Nagar+Gorakhpur+Uttar+Pradesh+273008&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Arastu Classes Location"
+              />
             </div>
           </motion.div>
 

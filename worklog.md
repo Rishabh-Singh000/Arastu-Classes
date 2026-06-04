@@ -279,3 +279,35 @@ Mobile-first responsive optimization for 5 lower sections + page wrapper. Zero c
 - ESLint: ✅ Passes with no errors
 - Dev server: ✅ Compiles successfully, 200 responses
 - Desktop layout: ✅ Unchanged (verified by no structural changes above md/lg breakpoints)
+
+---
+## Session 4 - Contact Info & Map Updates (Task 4)
+
+### Date: 2025-06-05
+
+### Summary:
+Updated contact information across all components and integrated a Google Maps embed in the contact section.
+
+### Files Modified (4):
+
+1. **`src/components/contact-section.tsx`** — Updated contact info and replaced map placeholder:
+   - Address changed to: "Laxmi Market, Near Gorakhpur Airport" / "Sainik Kunj, Nanda Nagar" / "Gorakhpur, UP - 273008"
+   - Phone changed to: "+91 76518 67107" (single number, removed second)
+   - Map placeholder replaced with live Google Maps iframe embed using address-based query URL
+
+2. **`src/components/footer.tsx`** — Updated contact info:
+   - Address updated with `<br />` line breaks for multi-line display
+   - Phone number updated to "+91 76518 67107"
+
+3. **`src/components/floating-buttons.tsx`** — Updated phone links:
+   - Call button `tel:` href changed to `tel:+917651867107`
+   - WhatsApp button `wa.me` link changed to `wa.me/917651867107`
+
+4. **`src/components/mobile-bottom-bar.tsx`** — Updated phone links:
+   - Call Now `tel:` href changed to `tel:+917651867107`
+   - WhatsApp `wa.me` link changed to `wa.me/917651867107`
+
+### Verification:
+- ESLint: ✅ Passes clean
+- Dev server: ✅ Compiles successfully
+- Browser verification: ✅ Address, phone, map iframe, and all call/WhatsApp links confirmed correct
