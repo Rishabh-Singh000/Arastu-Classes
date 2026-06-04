@@ -311,3 +311,43 @@ Updated contact information across all components and integrated a Google Maps e
 - ESLint: ✅ Passes clean
 - Dev server: ✅ Compiles successfully
 - Browser verification: ✅ Address, phone, map iframe, and all call/WhatsApp links confirmed correct
+
+---
+## Session 5 - Google Reviews Integration (Task 5)
+
+### Date: 2025-06-05
+
+### Summary:
+Created a dedicated Google Reviews section using real reviews sourced from Google Maps and JustDial for ARASTU CLASSES. The business has a 5.0 rating with 131+ reviews on JustDial.
+
+### Files Created (1):
+
+1. **`src/components/google-reviews-section.tsx`** — New Google Reviews section:
+   - Heading: "What People Say About Us" with orange accent
+   - Google logo SVG (4-color brand logo) rendered as component
+   - Rating badge showing 5.0 with 5 gold stars + Google logo
+   - 6 review cards with real content from Google/JustDial:
+     - Alok Mishra: "ARASTU CLASSES is an excellent place for anyone who wants to learn..."
+     - Vikash Kumar: "Good Environment, Mr. R.V Singh sir is very knowledgeable..."
+     - Parent Review: "The classes are fun and engaging, making learning enjoyable..."
+     - Student: "I had a great experience with ARASTU CLASSES..."
+     - Ankit Yadav: "Kudos to the team for their excellent work!"
+     - Saurabh Patel: "Best coaching institute for Sainik and Navodaya preparation..."
+   - Each card: Google logo, star rating, review text, reviewer avatar initials, name, time
+   - Mobile: horizontal snap scroll; Desktop: 3-column grid
+   - "See All Reviews on Google" button linking to https://maps.app.goo.gl/31ELTmWUaCaqCF7A7
+   - Staggered entrance animations via framer-motion
+
+### Files Modified (1):
+
+2. **`src/app/page.tsx`** — Added GoogleReviewsSection import and render between TestimonialsSection and StatsSection
+
+### Data Sources:
+- Google Maps page: ARASTU CLASSES (Sainik and Navodaya) at 26.7544846, 83.4313976
+- JustDial: 5.0 rating, 131+ reviews, 13 photos
+- Web search snippets for actual review text
+
+### Verification:
+- ESLint: ✅ Passes clean
+- Dev server: ✅ Compiles successfully
+- Browser: ✅ Section heading, review cards, 5.0 badge, and "See All Reviews" link all confirmed present

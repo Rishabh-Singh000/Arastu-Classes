@@ -7,6 +7,7 @@ import BooksSection from '@/components/books-section';
 import ResultsSection from '@/components/results-section';
 import EducatorsSection from '@/components/educators-section';
 import TestimonialsSection from '@/components/testimonials-section';
+import GoogleReviewsSection from '@/components/google-reviews-section';
 import StatsSection from '@/components/stats-section';
 import ContactSection from '@/components/contact-section';
 import Footer from '@/components/footer';
@@ -26,6 +27,7 @@ export default function Home() {
         <ResultsSection />
         <EducatorsSection />
         <TestimonialsSection />
+        <GoogleReviewsSection />
         <StatsSection />
         <ContactSection />
       </main>
