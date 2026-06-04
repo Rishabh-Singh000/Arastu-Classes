@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 
 const educators = [
   {
@@ -86,12 +85,12 @@ export default function EducatorsSection() {
           {educators.map((educator, index) => (
             <motion.div key={index} variants={itemVariants}>
               <Card
-                className={`group h-full text-center border-2 ${educator.borderColor} md:hover:shadow-xl transition-shadow duration-300 md:hover:-translate-y-1 min-w-[260px] md:min-w-0 shrink-0 snap-start md:shrink`}
+                className={`h-full text-center border-2 ${educator.borderColor} min-w-[260px] md:min-w-0 shrink-0 snap-start md:shrink`}
               >
                 <CardContent className="p-5 sm:p-6">
                   {/* Avatar */}
                   <div
-                    className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full ${educator.color} mx-auto mb-4 flex items-center justify-center shadow-lg md:group-hover:scale-105 transition-transform`}
+                    className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full ${educator.color} mx-auto mb-4 flex items-center justify-center shadow-lg`}
                   >
                     <User className="size-8 sm:size-10 text-white" />
                   </div>
@@ -107,17 +106,9 @@ export default function EducatorsSection() {
                   </p>
 
                   {/* Bio */}
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     {educator.bio}
                   </p>
-
-                  {/* View Profile Button */}
-                  <Button
-                    variant="outline"
-                    className="text-sm font-medium hover:bg-arastu-orange hover:text-white hover:border-arastu-orange transition-colors w-full h-12 sm:h-auto"
-                  >
-                    View Profile
-                  </Button>
                 </CardContent>
               </Card>
             </motion.div>
