@@ -38,11 +38,6 @@ const EducatorsSection = dynamic(
   { loading: () => <SectionSkeleton />, ssr: false }
 );
 
-const TestimonialsSection = dynamic(
-  () => import('@/components/testimonials-section').then((m) => m.default),
-  { loading: () => <SectionSkeleton />, ssr: false }
-);
-
 const GoogleReviewsSection = dynamic(
   () => import('@/components/google-reviews-section').then((m) => m.default),
   { loading: () => <SectionSkeleton />, ssr: false }
@@ -85,7 +80,6 @@ export default function Home() {
         <BooksSection />
         <ResultsSection />
         <EducatorsSection />
-        <TestimonialsSection />
         <GoogleReviewsSection />
         <StatsSection />
         <ContactSection />
