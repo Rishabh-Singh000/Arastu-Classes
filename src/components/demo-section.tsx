@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,6 +15,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { ClientOnly } from '@/components/client-only';
+import { useReveal } from '@/hooks/use-reveal';
 
 const benefits = [
   'Experience our teaching methodology firsthand',
@@ -43,6 +43,8 @@ interface FormErrors {
 
 export default function DemoSection() {
   const { toast } = useToast();
+  const leftRef = useReveal<HTMLDivElement>();
+  const rightRef = useReveal<HTMLDivElement>();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
@@ -88,12 +90,7 @@ export default function DemoSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
           {/* Left Column - Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div ref={leftRef} className="reveal-left">
             <Card className="border-0 shadow-xl bg-gradient-to-br from-arastu-dark to-arastu-dark/95 text-white overflow-hidden relative">
               <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-arastu-green" />
               <CardContent className="p-5 sm:p-6 md:p-8 lg:p-10">
@@ -125,15 +122,10 @@ export default function DemoSection() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
 
           {/* Right Column - Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div ref={rightRef} className="reveal-right">
             <Card className="border-2 border-gray-100 shadow-lg">
               <CardContent className="p-4 sm:p-5 md:p-6 lg:p-8">
                 <h3 className="text-xl sm:text-2xl font-bold text-arastu-dark mb-6">
@@ -287,7 +279,7 @@ export default function DemoSection() {
                 </form>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

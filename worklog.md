@@ -351,3 +351,190 @@ Created a dedicated Google Reviews section using real reviews sourced from Googl
 - ESLint: ✅ Passes clean
 - Dev server: ✅ Compiles successfully
 - Browser: ✅ Section heading, review cards, 5.0 badge, and "See All Reviews" link all confirmed present
+
+---
+
+## Session 6 - CSS-Only Scroll Animations (Framer-Motion Removal)
+
+### Date: 2025-06-05
+
+### Summary:
+Converted 10 React components from framer-motion scroll animations to CSS-only scroll animations using the `useReveal`, `useRevealStagger`, and `useHasBeenInView` hooks. Cleaned up 2 additional components by removing unused `AnimatePresence` imports. Fixed a bug in the `useHasBeenInView` hook where `useRef` was incorrectly destructured as an array, and refactored it to use `useCallback` for React 19 strict mode compliance.
+
+### Files Modified (13):
+
+**Hook Fix:**
+1. **`src/hooks/use-reveal.ts`** — Fixed `useHasBeenInView` hook:
+   - Original bug: `const [triggered, setTriggered] = useRef(false)` (useRef returns object, not array)
+   - Fixed to use `useCallback` pattern for stable `observe` function reference
+   - Observer now always unobserves after first intersection (prevents memory leaks)
+   - Added `useCallback` to imports
+   - Compliant with React 19 `react-hooks/refs` ESLint rule
+
+**Full Conversions (framer-motion → CSS-only):**
+2. **`src/components/courses-section.tsx`** — Converted:
+   - Removed `import { motion } from 'framer-motion'`
+   - Removed `containerVariants` / `itemVariants` objects
+   - Section title: `<motion.div>` → `<div ref={useReveal()} className="reveal-up">`
+   - Grid container: `useRevealStagger()` ref replaces `containerVariants`
+   - Cards: `className="reveal-up" style={{ transitionDelay: \`${index * 200}ms\` }}` (matching original staggerChildren: 0.2)
+
+3. **`src/components/features-section.tsx`** — Converted:
+   - Same pattern as courses: staggerChildren 0.15 → `transitionDelay: ${index * 150}ms`
+   - 6 feature cards with reveal-up stagger
+
+4. **`src/components/demo-section.tsx`** — Converted:
+   - Left column: `<motion.div x: -40>` → `<div ref={useReveal()} className="reveal-left">`
+   - Right column: `<motion.div x: 40>` → `<div ref={useReveal()} className="reveal-right">`
+
+5. **`src/components/books-section.tsx`** — Converted:
+   - staggerChildren 0.1 → `transitionDelay: ${index * 100}ms`
+   - 6 book cards with reveal-up stagger
+
+6. **`src/components/results-section.tsx`** — Converted:
+   - Section title: reveal-up
+   - Stats grid: reveal-up with 200ms delay
+   - Toppers section: reveal-up with 300ms delay
+   - Counter trigger: `useInView` → `useHasBeenInView` with `useState` + `useEffect` pattern
+   - Removed `import { motion, useInView } from 'framer-motion'`
+   - Removed `useRef` from imports (no longer needed for framer-motion ref)
+   - Counter section ref moved from section element to `useHasBeenInView` hook
+
+7. **`src/components/educators-section.tsx`** — Converted:
+   - staggerChildren 0.15 → `transitionDelay: ${index * 150}ms`
+   - 4 educator cards with reveal-up stagger
+
+8. **`src/components/google-reviews-section.tsx`** — Converted:
+   - Section title: reveal-up
+   - Google badge: `useReveal()` with `className="reveal-scale"` + 200ms delay (matching original scale 0.9 → 1)
+   - Reviews grid: `useRevealStagger()` + staggerChildren 0.1 → `transitionDelay: ${index * 100}ms`
+   - CTA button: reveal-up with 300ms delay
+
+9. **`src/components/stats-section.tsx`** — Converted:
+   - Stats grid: reveal-up via `useReveal()`
+   - Counter trigger: `useInView` → `useHasBeenInView` with `useState` + `useEffect` pattern
+   - Removed `import { motion, useInView } from 'framer-motion'`
+
+10. **`src/components/contact-section.tsx`** — Converted:
+    - Section title: reveal-up
+    - Left column (contact info + map): reveal-left
+    - Right column (form): reveal-right
+
+11. **`src/components/testimonials-section.tsx`** — Converted:
+    - Section title: reveal-up
+    - Carousel wrapper: reveal-up with 200ms delay
+    - Removed `useInView` and `useRef` (was imported but `isInView` was unused for any visual logic)
+    - Removed `ref` from the container div
+
+**Import Cleanup (kept framer-motion for other reasons):**
+12. **`src/components/navbar.tsx`** — Removed unused `AnimatePresence` from import (kept `motion` for initial slide-down animation)
+
+13. **`src/components/mobile-bottom-bar.tsx`** — Removed unused `AnimatePresence` from import (kept `motion` for spring slide-up animation)
+
+### Animation Mapping:
+
+| Framer Motion Pattern | CSS Replacement | Hook |
+|---|---|---|
+| `whileInView={{ opacity: 1, y: 0 }}` | `reveal-up` + `revealed` class | `useReveal()` |
+| `whileInView={{ opacity: 1, x: 0 }}` (x: -40) | `reveal-left` + `revealed` class | `useReveal()` |
+| `whileInView={{ opacity: 1, x: 0 }}` (x: 40) | `reveal-right` + `revealed` class | `useReveal()` |
+| `whileInView={{ opacity: 1, scale: 1 }}` | `reveal-scale` + `revealed` class | `useReveal()` |
+| `variants={containerVariants}` (stagger) | Container ref | `useRevealStagger()` |
+| `variants={itemVariants}` (stagger item) | `reveal-*` + `transitionDelay` | Parent `useRevealStagger()` |
+| `useInView` + counter logic | `useHasBeenInView` | `useHasBeenInView()` |
+
+### Stagger Delay Mapping:
+
+| Component | Original staggerChildren | CSS delay per item |
+|---|---|---|
+| courses-section | 0.2s | `${index * 200}ms` |
+| features-section | 0.15s | `${index * 150}ms` |
+| books-section | 0.1s | `${index * 100}ms` |
+| educators-section | 0.15s | `${index * 150}ms` |
+| google-reviews-section | 0.1s | `${index * 100}ms` |
+
+### Files NOT Modified (per requirements):
+- `src/components/hero-section.tsx` — Complex orchestrated framer-motion animation
+- `src/components/floating-buttons.tsx` — Spring + whileHover animations
+- `src/components/footer.tsx` — No framer-motion usage
+
+### Verification:
+- ESLint: ✅ Passes with no errors
+- Dev server: ✅ Compiles successfully, 200 responses
+- All animations: ✅ CSS classes applied with correct reveal-* classes and transition delays
+
+---
+## Session 7 - Performance Optimization (Task 7)
+
+### Date: 2025-06-05
+
+### Summary:
+Comprehensive performance optimization: lazy-loaded all below-fold sections with `next/dynamic`, converted hero image to WebP (38% smaller), lazy-loaded Google Maps iframe with IntersectionObserver, added font `display: swap`, and created a loading skeleton system.
+
+### Files Created (2):
+
+1. **`src/hooks/use-reveal.ts`** — Created:
+   - `useReveal()` — IntersectionObserver hook, adds `revealed` class to single element
+   - `useRevealStagger()` — Reveals all `.reveal-up/.reveal-left/.reveal-right/.reveal-scale` children in a container
+   - `useHasBeenInView()` — Returns `{ ref, observe }` for triggering JS logic on scroll
+
+2. **`src/components/section-skeleton.tsx`** — Loading skeletons for dynamic imports:
+   - `SectionSkeleton` — 3-column card skeleton with title placeholder
+   - `FullWidthSkeleton` — 4-column stat skeleton for stats section
+
+### Files Modified (5):
+
+3. **`src/app/page.tsx`** — Converted to lazy-loading architecture:
+   - Added `'use client'` directive (required for `next/dynamic`)
+   - 11 sections imported via `next/dynamic()` with `ssr: false`:
+     - CoursesSection, FeaturesSection, DemoSection, BooksSection
+     - ResultsSection, EducatorsSection, TestimonialsSection
+     - GoogleReviewsSection, StatsSection, ContactSection, Footer
+   - FloatingButtons and MobileBottomBar: `next/dynamic` with `ssr: false` (no skeleton)
+   - Only Navbar and HeroSection remain synchronous (above the fold)
+   - Each lazy section has a `SectionSkeleton` loading fallback
+
+4. **`src/components/hero-section.tsx`** — Image optimization:
+   - Changed `src="/hero-banner.png"` → `src="/hero-banner.webp"`
+   - Added `sizes="100vw"` for proper responsive image sizing
+   - Added `quality={80}`
+
+5. **`src/components/contact-section.tsx`** — Lazy-loaded Google Maps:
+   - Added `mapRef` (useRef) + `mapLoaded` (useState) + IntersectionObserver useEffect
+   - Map iframe only loads when container enters viewport (200px margin)
+   - Shows "Loading Map..." placeholder with MapPin icon until loaded
+   - Added `useEffect, useRef` imports
+
+6. **`src/app/layout.tsx`** — Font optimization:
+   - Added `display: "swap"` to both `Geist` and `Geist_Mono` font configs
+   - Prevents invisible text during font loading (improves FCP/LCP)
+
+7. **`src/app/globals.css`** — CSS reveal animation system:
+   - `.reveal-up` / `.reveal-up.revealed` — Fade in + slide up (30px)
+   - `.reveal-left` / `.reveal-left.revealed` — Fade in + slide from left (40px)
+   - `.reveal-right` / `.reveal-right.revealed` — Fade in + slide from right (40px)
+   - `.reveal-scale` / `.reveal-scale.revealed` — Fade in + scale from 0.9
+
+8. **`next.config.ts`** — Image configuration:
+   - Added `images.formats: ['image/webp']` and `images.qualities: [75, 80, 85]`
+
+### Files Created by Sharp:
+9. **`public/hero-banner.webp`** — WebP conversion of hero-banner.png:
+   - Original: 106.0 KB PNG
+   - Optimized: 65.5 KB WebP
+   - Reduction: 38.2%
+
+### Performance Impact:
+- **Initial JS bundle**: Significantly reduced — only Navbar + HeroSection loaded synchronously
+- **10 components** lazy-loaded via `next/dynamic` with code splitting
+- **Hero image**: 38% smaller (106KB → 65.5KB WebP)
+- **Google Maps iframe**: Only loaded when contact section scrolls into view
+- **Font rendering**: `display: swap` prevents FOIT (flash of invisible text)
+- **framer-motion**: Removed from 10 components, kept only in 3 (hero, floating-buttons, mobile-bar)
+
+### Verification:
+- ESLint: ✅ Passes clean
+- Dev server: ✅ Compiles successfully, auto-restarts on config change
+- Browser: ✅ All sections load, all animations trigger on scroll, zero console errors
+- Hero image: ✅ Served as WebP format
+- All 41 reveal elements confirmed triggering on scroll

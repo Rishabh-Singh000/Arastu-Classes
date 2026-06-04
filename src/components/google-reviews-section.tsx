@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Star, ExternalLink } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useReveal, useRevealStagger } from '@/hooks/use-reveal';
 
 const googleReviews = [
   {
@@ -43,19 +43,6 @@ const googleReviews = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-};
-
 function GoogleLogo({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -68,16 +55,18 @@ function GoogleLogo({ className }: { className?: string }) {
 }
 
 export default function GoogleReviewsSection() {
+  const titleRef = useReveal<HTMLDivElement>();
+  const badgeRef = useReveal<HTMLDivElement>();
+  const gridRef = useRevealStagger<HTMLDivElement>();
+  const ctaRef = useReveal<HTMLDivElement>();
+
   return (
     <section className="py-10 sm:py-14 md:py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title with Google Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+        <div
+          ref={titleRef}
+          className="reveal-up text-center mb-8 sm:mb-12 md:mb-16"
         >
           <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             What People <span className="text-arastu-orange">Say About Us</span>
@@ -88,12 +77,10 @@ export default function GoogleReviewsSection() {
           </p>
 
           {/* Google Rating Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-3 mt-6 px-5 py-3 bg-white rounded-2xl shadow-lg border border-gray-100"
+          <div
+            ref={badgeRef}
+            className="reveal-scale inline-flex items-center gap-3 mt-6 px-5 py-3 bg-white rounded-2xl shadow-lg border border-gray-100"
+            style={{ transitionDelay: '200ms' }}
           >
             <GoogleLogo className="size-8" />
             <div className="text-left">
@@ -107,20 +94,17 @@ export default function GoogleReviewsSection() {
               </div>
               <p className="text-xs text-muted-foreground">Based on Google reviews</p>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Reviews Grid / Mobile Scroll */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+        <div
+          ref={gridRef}
           className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-6 md:overflow-visible md:pb-0 md:snap-none"
         >
           {googleReviews.map((review, index) => (
-            <motion.div key={index} variants={itemVariants}>
-              <Card className="h-full border border-gray-100 shadow-sm hover:shadow-md transition-shadow min-w-[280px] md:min-w-0 shrink-0 snap-start md:shrink">
+            <div key={index} className="reveal-up min-w-[280px] md:min-w-0 shrink-0 snap-start md:shrink" style={{ transitionDelay: `${index * 100}ms` }}>
+              <Card className="h-full border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <CardContent className="p-5 sm:p-6">
                   {/* Header: Google icon + Stars */}
                   <div className="flex items-center justify-between mb-4">
@@ -160,17 +144,15 @@ export default function GoogleReviewsSection() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* CTA: See All Reviews */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-8 sm:mt-10"
+        <div
+          ref={ctaRef}
+          className="reveal-up text-center mt-8 sm:mt-10"
+          style={{ transitionDelay: '300ms' }}
         >
           <a
             href="https://maps.app.goo.gl/31ELTmWUaCaqCF7A7"
@@ -182,7 +164,7 @@ export default function GoogleReviewsSection() {
             See All Reviews on Google
             <ExternalLink className="size-4" />
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

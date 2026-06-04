@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import {
   Monitor,
   ClipboardCheck,
@@ -10,6 +9,7 @@ import {
   Award,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useReveal, useRevealStagger } from '@/hooks/use-reveal';
 
 const features = [
   {
@@ -50,30 +50,17 @@ const features = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
 export default function FeaturesSection() {
+  const titleRef = useReveal<HTMLDivElement>();
+  const gridRef = useRevealStagger<HTMLDivElement>();
+
   return (
     <section id="features" className="py-10 sm:py-14 md:py-16 lg:py-24 bg-arastu-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10 sm:mb-12 md:mb-16"
+        <div
+          ref={titleRef}
+          className="reveal-up text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             Why Choose <span className="text-arastu-orange">Arastu Classes?</span>
@@ -82,18 +69,15 @@ export default function FeaturesSection() {
           <p className="text-muted-foreground mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             We provide everything your child needs to crack the toughest entrance exams
           </p>
-        </motion.div>
+        </div>
 
         {/* Features Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+        <div
+          ref={gridRef}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
         >
           {features.map((feature, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <div key={index} className="reveal-up" style={{ transitionDelay: `${index * 150}ms` }}>
               <Card className="group h-full border-0 shadow-md hover:shadow-xl transition-all duration-300 lg:hover:-translate-y-1 bg-white">
                 <CardContent className="p-5 sm:p-6">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-arastu-orange/10 flex items-center justify-center mb-4 group-hover:bg-arastu-orange/20 transition-colors">
@@ -107,9 +91,9 @@ export default function FeaturesSection() {
                   </p>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { useReveal } from '@/hooks/use-reveal';
 
 const contactInfo = [
   {
@@ -49,6 +49,27 @@ interface ContactFormErrors {
 
 export default function ContactSection() {
   const { toast } = useToast();
+  const titleRef = useReveal<HTMLDivElement>();
+  const leftRef = useReveal<HTMLDivElement>();
+  const rightRef = useReveal<HTMLDivElement>();
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
+
+  useEffect(() => {
+    const el = mapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMapLoaded(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -110,12 +131,9 @@ export default function ContactSection() {
     <section id="contact" className="py-10 sm:py-14 md:py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+        <div
+          ref={titleRef}
+          className="reveal-up text-center mb-8 sm:mb-12 md:mb-16"
         >
           <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             Contact <span className="text-arastu-orange">Us</span>
@@ -124,17 +142,11 @@ export default function ContactSection() {
           <p className="text-muted-foreground mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Have questions? Get in touch with us and we&apos;ll be happy to help
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
           {/* Left - Contact Info + Map */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
+          <div ref={leftRef} className="reveal-left space-y-6">
             {/* Contact Cards */}
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {contactInfo.map((info, index) => (
@@ -160,28 +172,32 @@ export default function ContactSection() {
               ))}
             </div>
 
-            {/* Google Map Embed */}
-            <div className="w-full h-48 sm:h-56 md:h-72 rounded-xl overflow-hidden border-2 border-gray-200 shadow-sm">
-              <iframe
-                src="https://www.google.com/maps?q=Laxmi+Market+near+Gorakhpur+Airport+Sainik+Kunj+Nanda+Nagar+Gorakhpur+Uttar+Pradesh+273008&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Arastu Classes Location"
-              />
+            {/* Google Map Embed (lazy loaded) */}
+            <div ref={mapRef} className="map-container w-full h-48 sm:h-56 md:h-72 rounded-xl overflow-hidden border-2 border-gray-200 shadow-sm bg-gray-100">
+              {mapLoaded ? (
+                <iframe
+                  src="https://www.google.com/maps?q=Laxmi+Market+near+Gorakhpur+Airport+Sainik+Kunj+Nanda+Nagar+Gorakhpur+Uttar+Pradesh+273008&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Arastu Classes Location"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <MapPin className="size-10 text-arastu-orange mx-auto mb-2" />
+                    <p className="font-semibold text-arastu-dark">Loading Map...</p>
+                  </div>
+                </div>
+              )}
             </div>
-          </motion.div>
+          </div>
 
           {/* Right - Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div ref={rightRef} className="reveal-right">
             <Card className="border-2 border-gray-100 shadow-lg h-full">
               <CardContent className="p-4 sm:p-5 md:p-6 md:p-8">
                 <h3 className="text-xl sm:text-2xl font-bold text-arastu-dark mb-6">
@@ -279,7 +295,7 @@ export default function ContactSection() {
                 </form>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

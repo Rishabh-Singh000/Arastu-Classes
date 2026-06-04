@@ -1,7 +1,7 @@
 'use client';
 
 import { Phone, MessageCircle } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function MobileBottomBar() {
   return (

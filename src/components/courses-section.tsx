@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { School, Shield, CheckCircle, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useReveal, useRevealStagger } from '@/hooks/use-reveal';
 
 const courses = [
   {
@@ -32,30 +32,17 @@ const courses = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
 export default function CoursesSection() {
+  const titleRef = useReveal<HTMLDivElement>();
+  const gridRef = useRevealStagger<HTMLDivElement>();
+
   return (
     <section id="courses" className="py-10 sm:py-14 md:py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10 sm:mb-12 md:mb-16"
+        <div
+          ref={titleRef}
+          className="reveal-up text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="mobile-h2 text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             Our Courses
@@ -64,18 +51,15 @@ export default function CoursesSection() {
           <p className="text-muted-foreground mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Expertly crafted courses for Sainik School and Navodaya Vidyalaya entrance exam preparation
           </p>
-        </motion.div>
+        </div>
 
         {/* Course Cards */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+        <div
+          ref={gridRef}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
         >
           {courses.map((course, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <div key={index} className="reveal-up" style={{ transitionDelay: `${index * 200}ms` }}>
               <Card className="group relative overflow-hidden border-2 hover:border-transparent transition-all duration-300 hover:shadow-2xl lg:hover:-translate-y-1 h-full">
                 {/* Color accent bar */}
                 <div
@@ -138,9 +122,9 @@ export default function CoursesSection() {
                   </Button>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

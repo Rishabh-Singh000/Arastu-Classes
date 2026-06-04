@@ -18,11 +18,13 @@ export default function HeroSection() {
       {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero-banner.png"
+          src="/hero-banner.webp"
           alt="Arastu Classes Hero Banner"
           fill
+          sizes="100vw"
           className="object-cover object-center"
           priority
+          quality={80}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-arastu-dark/95 via-arastu-dark/80 to-arastu-dark/60 md:bg-gradient-to-r md:from-arastu-dark/90 md:via-arastu-dark/70 md:to-arastu-dark/50" />
       </div>

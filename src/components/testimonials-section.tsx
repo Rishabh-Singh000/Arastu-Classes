@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Star, Quote } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -14,6 +13,7 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { ClientOnly } from '@/components/client-only';
+import { useReveal } from '@/hooks/use-reveal';
 
 const testimonials = [
   {
@@ -94,19 +94,16 @@ function CarouselDots({ totalItems }: { totalItems: number }) {
 }
 
 export default function TestimonialsSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true });
+  const titleRef = useReveal<HTMLDivElement>();
+  const carouselRef = useReveal<HTMLDivElement>();
 
   return (
     <section className="py-10 sm:py-14 md:py-16 lg:py-24 bg-arastu-light">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+        <div
+          ref={titleRef}
+          className="reveal-up text-center mb-8 sm:mb-12 md:mb-16"
         >
           <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             Our <span className="text-arastu-orange">Success Stories</span>
@@ -115,15 +112,13 @@ export default function TestimonialsSection() {
           <p className="text-muted-foreground mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Hear from students who achieved their dreams with Arastu Classes
           </p>
-        </motion.div>
+        </div>
 
         {/* Testimonials Carousel */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative"
+        <div
+          ref={carouselRef}
+          className="reveal-up relative"
+          style={{ transitionDelay: '200ms' }}
         >
           <ClientOnly
             fallback={
@@ -235,7 +230,7 @@ export default function TestimonialsSection() {
               <CarouselDots totalItems={testimonials.length} />
             </Carousel>
           </ClientOnly>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

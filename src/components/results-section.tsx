@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useEffect, useState, useCallback } from 'react';
 import { GraduationCap, Medal, TrendingUp, Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useReveal, useHasBeenInView } from '@/hooks/use-reveal';
 
 const stats = [
   { icon: GraduationCap, value: 5000, suffix: '+', label: 'Students Trained' },
@@ -92,23 +92,28 @@ function AnimatedCounter({
 }
 
 export default function ResultsSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const titleRef = useReveal<HTMLDivElement>();
+  const statsRef = useReveal<HTMLDivElement>();
+  const toppersRef = useReveal<HTMLDivElement>();
+  const { ref: counterRef, observe } = useHasBeenInView<HTMLDivElement>();
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const cleanup = observe(() => setInView(true));
+    return cleanup;
+  }, [observe]);
 
   return (
-    <section id="results" ref={ref} className="py-10 sm:py-14 md:py-16 lg:py-24 relative overflow-hidden">
+    <section id="results" ref={counterRef} className="py-10 sm:py-14 md:py-16 lg:py-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-arastu-green via-green-800 to-arastu-dark" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNnKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==')] opacity-50" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10 sm:mb-12 md:mb-16"
+        <div
+          ref={titleRef}
+          className="reveal-up text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             Record Breaking <span className="text-arastu-gold">Results</span>
@@ -118,15 +123,13 @@ export default function ResultsSection() {
             Our students consistently achieve top ranks in both Sainik School and JNV
             entrance exams
           </p>
-        </motion.div>
+        </div>
 
         {/* Stats Counters */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 mb-10 sm:mb-12 md:mb-16"
+        <div
+          ref={statsRef}
+          className="reveal-up grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 mb-10 sm:mb-12 md:mb-16"
+          style={{ transitionDelay: '200ms' }}
         >
           {stats.map((stat, index) => (
             <div
@@ -136,18 +139,17 @@ export default function ResultsSection() {
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-3">
                 <stat.icon className="size-6 text-arastu-gold" />
               </div>
-              <AnimatedCounter value={stat.value} suffix={stat.suffix} inView={isInView} />
+              <AnimatedCounter value={stat.value} suffix={stat.suffix} inView={inView} />
               <p className="text-green-100 text-xs sm:text-sm mt-2 font-medium">{stat.label}</p>
             </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Toppers Showcase */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+        <div
+          ref={toppersRef}
+          className="reveal-up"
+          style={{ transitionDelay: '300ms' }}
         >
           <h3 className="text-center text-xl sm:text-2xl font-bold text-white mb-8">
             🏆 Recent Toppers
@@ -193,7 +195,7 @@ export default function ResultsSection() {
               </Card>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
