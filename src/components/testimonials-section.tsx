@@ -13,6 +13,7 @@ import {
   useCarousel,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import { ClientOnly } from '@/components/client-only';
 
 const testimonials = [
   {
@@ -124,30 +125,13 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative"
         >
-          <Carousel
-            opts={{
-              align: 'start',
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 4000,
-                stopOnInteraction: true,
-              }),
-            ]}
-          >
-            <CarouselContent className="-ml-4">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-4 basis-full md:basis-1/2 lg:basis-1/3"
-                >
-                  <Card className="h-full border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
+          <ClientOnly
+            fallback={
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {testimonials.slice(0, 3).map((testimonial, index) => (
+                  <Card key={index} className="h-full border-0 shadow-md bg-white">
                     <CardContent className="p-5 sm:p-6">
-                      {/* Quote Icon */}
                       <Quote className="size-8 text-arastu-orange/20 mb-3" />
-
-                      {/* Stars */}
                       <div className="flex gap-1 mb-4">
                         {Array.from({ length: 5 }).map((_, i) => (
                           <Star
@@ -160,40 +144,97 @@ export default function TestimonialsSection() {
                           />
                         ))}
                       </div>
-
-                      {/* Quote Text */}
                       <p className="text-sm sm:text-base text-arastu-dark/80 leading-relaxed mb-6">
                         &ldquo;{testimonial.text}&rdquo;
                       </p>
-
-                      {/* Student Info */}
                       <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
                         <div className="w-10 h-10 rounded-full bg-arastu-orange/10 flex items-center justify-center">
                           <span className="text-sm font-bold text-arastu-orange">
-                            {testimonial.name
-                              .split(' ')
-                              .map((n) => n[0])
-                              .join('')}
+                            {testimonial.name.split(' ').map((n) => n[0]).join('')}
                           </span>
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-arastu-dark">
-                            {testimonial.name}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {testimonial.exam}
-                          </p>
+                          <p className="text-sm font-semibold text-arastu-dark">{testimonial.name}</p>
+                          <p className="text-sm text-muted-foreground">{testimonial.exam}</p>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-12 top-1/3" />
-            <CarouselNext className="hidden md:flex -right-12 top-1/3" />
-            <CarouselDots totalItems={testimonials.length} />
-          </Carousel>
+                ))}
+              </div>
+            }
+          >
+            <Carousel
+              opts={{
+                align: 'start',
+                loop: true,
+              }}
+              plugins={[
+                Autoplay({
+                  delay: 4000,
+                  stopOnInteraction: true,
+                }),
+              ]}
+            >
+              <CarouselContent className="-ml-4">
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="pl-4 basis-full md:basis-1/2 lg:basis-1/3"
+                  >
+                    <Card className="h-full border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
+                      <CardContent className="p-5 sm:p-6">
+                        {/* Quote Icon */}
+                        <Quote className="size-8 text-arastu-orange/20 mb-3" />
+
+                        {/* Stars */}
+                        <div className="flex gap-1 mb-4">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`size-3.5 sm:size-4 ${
+                                i < testimonial.rating
+                                  ? 'fill-arastu-gold text-arastu-gold'
+                                  : 'fill-gray-200 text-gray-200'
+                              }`}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Quote Text */}
+                        <p className="text-sm sm:text-base text-arastu-dark/80 leading-relaxed mb-6">
+                          &ldquo;{testimonial.text}&rdquo;
+                        </p>
+
+                        {/* Student Info */}
+                        <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                          <div className="w-10 h-10 rounded-full bg-arastu-orange/10 flex items-center justify-center">
+                            <span className="text-sm font-bold text-arastu-orange">
+                              {testimonial.name
+                                .split(' ')
+                                .map((n) => n[0])
+                                .join('')}
+                            </span>
+                          </div>
+                          <div>
+                            <p className="text-sm font-semibold text-arastu-dark">
+                              {testimonial.name}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {testimonial.exam}
+                            </p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex -left-12 top-1/3" />
+              <CarouselNext className="hidden md:flex -right-12 top-1/3" />
+              <CarouselDots totalItems={testimonials.length} />
+            </Carousel>
+          </ClientOnly>
         </motion.div>
       </div>
     </section>

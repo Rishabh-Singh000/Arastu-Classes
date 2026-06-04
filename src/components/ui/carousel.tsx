@@ -124,6 +124,7 @@ function Carousel({
         role="region"
         aria-roledescription="carousel"
         data-slot="carousel"
+        suppressHydrationWarning
         {...props}
       >
         {children}
@@ -140,6 +141,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
       ref={carouselRef}
       className="overflow-hidden"
       data-slot="carousel-content"
+      suppressHydrationWarning
     >
       <div
         className={cn(
@@ -161,6 +163,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
       role="group"
       aria-roledescription="slide"
       data-slot="carousel-item"
+      suppressHydrationWarning
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
         orientation === "horizontal" ? "pl-4" : "pt-4",
@@ -193,6 +196,7 @@ function CarouselPrevious({
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
+      suppressHydrationWarning
       {...props}
     >
       <ArrowLeft />
@@ -223,6 +227,7 @@ function CarouselNext({
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
+      suppressHydrationWarning
       {...props}
     >
       <ArrowRight />

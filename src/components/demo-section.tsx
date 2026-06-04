@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { ClientOnly } from '@/components/client-only';
 
 const benefits = [
   'Experience our teaching methodology firsthand',
@@ -210,22 +211,31 @@ export default function DemoSection() {
                       Select Course <span className="text-red-500">*</span>
                     </Label>
                     <div className="mobile-input">
-                      <Select
-                        value={formData.course}
-                        onValueChange={(value) =>
-                          setFormData({ ...formData, course: value })
+                      <ClientOnly
+                        fallback={
+                          <div className="flex w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm h-12">
+                            <span className="text-muted-foreground">Choose a course</span>
+                            <ChevronDown className="size-4 opacity-50" />
+                          </div>
                         }
                       >
-                        <SelectTrigger className={`w-full ${errors.course ? 'border-red-500' : ''}`}>
-                          <SelectValue placeholder="Choose a course" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="sainik-6">Sainik School - Class 6th</SelectItem>
-                          <SelectItem value="sainik-9">Sainik School - Class 9th</SelectItem>
-                          <SelectItem value="jnv-6">JNV - Class 6th</SelectItem>
-                          <SelectItem value="jnv-9">JNV - Class 9th</SelectItem>
-                        </SelectContent>
-                      </Select>
+                        <Select
+                          value={formData.course}
+                          onValueChange={(value) =>
+                            setFormData({ ...formData, course: value })
+                          }
+                        >
+                          <SelectTrigger className={`w-full ${errors.course ? 'border-red-500' : ''}`}>
+                            <SelectValue placeholder="Choose a course" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="sainik-6">Sainik School - Class 6th</SelectItem>
+                            <SelectItem value="sainik-9">Sainik School - Class 9th</SelectItem>
+                            <SelectItem value="jnv-6">JNV - Class 6th</SelectItem>
+                            <SelectItem value="jnv-9">JNV - Class 9th</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </ClientOnly>
                     </div>
                     {errors.course && (
                       <p className="text-sm text-red-500">{errors.course}</p>
@@ -238,20 +248,29 @@ export default function DemoSection() {
                       Select Class <span className="text-red-500">*</span>
                     </Label>
                     <div className="mobile-input">
-                      <Select
-                        value={formData.class}
-                        onValueChange={(value) =>
-                          setFormData({ ...formData, class: value })
+                      <ClientOnly
+                        fallback={
+                          <div className="flex w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm h-12">
+                            <span className="text-muted-foreground">Choose your class</span>
+                            <ChevronDown className="size-4 opacity-50" />
+                          </div>
                         }
                       >
-                        <SelectTrigger className={`w-full ${errors.class ? 'border-red-500' : ''}`}>
-                          <SelectValue placeholder="Choose your class" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="6">Class 6th</SelectItem>
-                          <SelectItem value="9">Class 9th</SelectItem>
-                        </SelectContent>
-                      </Select>
+                        <Select
+                          value={formData.class}
+                          onValueChange={(value) =>
+                            setFormData({ ...formData, class: value })
+                          }
+                        >
+                          <SelectTrigger className={`w-full ${errors.class ? 'border-red-500' : ''}`}>
+                            <SelectValue placeholder="Choose your class" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="6">Class 6th</SelectItem>
+                            <SelectItem value="9">Class 9th</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </ClientOnly>
                     </div>
                     {errors.class && (
                       <p className="text-sm text-red-500">{errors.class}</p>
