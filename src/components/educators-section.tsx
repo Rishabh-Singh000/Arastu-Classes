@@ -69,18 +69,18 @@ export default function EducatorsSection() {
           {educators.map((educator, index) => (
             <div key={index} className="reveal-up" style={{ transitionDelay: `${index * 150}ms` }}>
               <Card
-                className={`h-full text-center border-2 ${educator.borderColor} min-w-[260px] md:min-w-0 shrink-0 snap-start md:shrink`}
+                className={`h-full text-center border-2 ${educator.borderColor} min-w-[260px] md:min-w-0 shrink-0 snap-start md:shrink group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-default`}
               >
                 <CardContent className="p-5 sm:p-6">
                   {/* Avatar */}
                   <div
-                    className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full ${educator.color} mx-auto mb-4 flex items-center justify-center shadow-lg`}
+                    className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full ${educator.color} mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
                   >
                     <User className="size-8 sm:size-10 text-white" />
                   </div>
 
                   {/* Name */}
-                  <h3 className="text-base sm:text-lg font-bold text-arastu-dark">
+                  <h3 className="text-base sm:text-lg font-bold text-arastu-dark group-hover:text-arastu-orange transition-colors duration-300">
                     {educator.name}
                   </h3>
 
