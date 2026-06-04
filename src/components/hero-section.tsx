@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Users, Trophy, CalendarDays } from 'lucide-react';
@@ -13,6 +14,8 @@ const trustBadges = [
 ];
 
 export default function HeroSection() {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   return (
     <section className="relative flex items-center overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24 lg:min-h-[90vh]">
       {/* Background Image with Gradient Overlay */}
@@ -22,9 +25,9 @@ export default function HeroSection() {
           alt="Arastu Classes Hero Banner"
           fill
           sizes="100vw"
-          className="object-cover object-center"
-          priority
+          className={`object-cover object-center transition-opacity duration-700 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
           quality={80}
+          onLoad={() => setImgLoaded(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-arastu-dark/95 via-arastu-dark/80 to-arastu-dark/60 md:bg-gradient-to-r md:from-arastu-dark/90 md:via-arastu-dark/70 md:to-arastu-dark/50" />
       </div>
