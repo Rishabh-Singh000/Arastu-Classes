@@ -217,9 +217,11 @@ html {
 
 @media (min-width: 641px) {
   .mobile-h1, .mobile-h2, .mobile-h3, .mobile-body, .mobile-btn {
-    /* Reset to inherited on desktop */
-    all: unset;
-    display: revert;
+    /* Reset mobile-only sizing overrides on desktop */
+    font-size: revert;
+    line-height: revert;
+    letter-spacing: revert;
+    min-height: revert;
   }
 }
 
