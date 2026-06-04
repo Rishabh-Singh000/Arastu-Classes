@@ -94,7 +94,7 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-2 border-arastu-green text-arastu-green hover:bg-arastu-green hover:text-white font-bold text-base px-8 py-6 bg-transparent mobile-btn"
+                className="w-full sm:w-auto border-2 border-arastu-green text-white hover:bg-arastu-green hover:text-white font-bold text-base px-8 py-6 bg-transparent mobile-btn"
               >
                 Book Free Demo
               </Button>
