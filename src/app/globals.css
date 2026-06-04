@@ -183,3 +183,70 @@ html {
 .animate-count-up {
   animation: count-up 0.5s ease-out forwards;
 }
+
+/* ===== MOBILE-FIRST RESPONSIVE UTILITIES ===== */
+
+/* Safe area for bottom bar */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Hide horizontal scrollbar for carousels */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Touch-friendly minimum sizing */
+.touch-target {
+  min-width: 48px;
+  min-height: 48px;
+}
+
+/* Mobile typography scaling */
+@media (max-width: 640px) {
+  .mobile-h1 { font-size: 34px; line-height: 1.15; letter-spacing: -0.02em; }
+  .mobile-h2 { font-size: 28px; line-height: 1.2; letter-spacing: -0.01em; }
+  .mobile-h3 { font-size: 22px; line-height: 1.25; }
+  .mobile-body { font-size: 16px; line-height: 1.6; }
+  .mobile-btn { font-size: 16px; min-height: 48px; }
+}
+
+@media (min-width: 641px) {
+  .mobile-h1, .mobile-h2, .mobile-h3, .mobile-body, .mobile-btn {
+    /* Reset to inherited on desktop */
+    all: unset;
+    display: revert;
+  }
+}
+
+/* Mobile bottom bar offset - add padding to main content above footer on mobile */
+@media (max-width: 767px) {
+  .mobile-bottom-offset {
+    padding-bottom: 72px;
+  }
+}
+
+/* Input fields min-height for touch */
+@media (max-width: 767px) {
+  .mobile-input input,
+  .mobile-input select,
+  .mobile-input textarea {
+    min-height: 48px;
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+}
+
+/* Desktop-only hover effects - remove on mobile */
+@media (max-width: 1023px) {
+  .hover-lift {
+    /* Disable hover lift on touch devices */
+  }
+  .hover-lift:hover,
+  .hover-lift:active {
+    transform: none !important;
+  }
+}

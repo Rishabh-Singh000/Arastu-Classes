@@ -14,7 +14,7 @@ const trustBadges = [
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative flex items-center overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24 lg:min-h-[90vh]">
       {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -24,12 +24,12 @@ export default function HeroSection() {
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-arastu-dark/90 via-arastu-dark/70 to-arastu-dark/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-arastu-dark/95 via-arastu-dark/80 to-arastu-dark/60 md:bg-gradient-to-r md:from-arastu-dark/90 md:via-arastu-dark/70 md:to-arastu-dark/50" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-        <div className="max-w-3xl">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left">
           {/* Floating Badge */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -37,7 +37,7 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-6"
           >
-            <Badge className="animate-float bg-arastu-gold text-white px-4 py-1.5 text-sm font-semibold border-0 shadow-lg">
+            <Badge className="animate-float bg-arastu-gold text-white px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold border-0 shadow-lg">
               🎓 Admissions Open 2025-26
             </Badge>
           </motion.div>
@@ -47,7 +47,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4"
+            className="text-[34px] leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white mb-4"
           >
             Arastu{' '}
             <span className="text-arastu-orange">Classes</span>
@@ -58,7 +58,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5 }}
-            className="text-xl sm:text-2xl md:text-3xl font-semibold text-arastu-orange mb-6"
+            className="text-base sm:text-lg md:text-xl font-semibold text-arastu-orange mb-4 md:mb-6"
           >
             India&apos;s Premier Sainik &amp; Navodaya Coaching Institute
           </motion.p>
@@ -68,7 +68,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
-            className="text-base sm:text-lg text-gray-300 mb-8 max-w-xl leading-relaxed"
+            className="text-sm sm:text-base md:text-lg text-gray-300 mb-8 max-w-full md:max-w-xl leading-relaxed mx-auto md:mx-0"
           >
             Comprehensive preparation for AISSEE (Sainik School) and JNVST (Jawahar
             Navodaya Vidyalaya) entrance exams. Join thousands of successful students
@@ -80,21 +80,21 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9 }}
-            className="flex flex-wrap gap-4 mb-12"
+            className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 mb-10 md:mb-12 w-full sm:w-auto"
           >
-            <a href="#courses">
+            <a href="#courses" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="bg-arastu-orange hover:bg-orange-600 text-white font-bold text-base px-8 py-6 shadow-xl shadow-arastu-orange/30"
+                className="w-full sm:w-auto bg-arastu-orange hover:bg-orange-600 text-white font-bold text-base px-8 py-6 shadow-xl shadow-arastu-orange/30 mobile-btn"
               >
                 Explore Courses
               </Button>
             </a>
-            <a href="#demo">
+            <a href="#demo" className="w-full sm:w-auto">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-arastu-green text-arastu-green hover:bg-arastu-green hover:text-white font-bold text-base px-8 py-6 bg-transparent"
+                className="w-full sm:w-auto border-2 border-arastu-green text-arastu-green hover:bg-arastu-green hover:text-white font-bold text-base px-8 py-6 bg-transparent mobile-btn"
               >
                 Book Free Demo
               </Button>
@@ -106,16 +106,16 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.1 }}
-            className="flex flex-wrap gap-6 sm:gap-8"
+            className="grid grid-cols-3 gap-3 sm:gap-4 md:flex md:gap-8 text-center md:text-left"
           >
             {trustBadges.map((badge, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <badge.icon className="size-6 text-arastu-orange" />
+              <div key={index} className="flex items-center gap-2 sm:gap-3 justify-center md:justify-start">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center shrink-0">
+                  <badge.icon className="size-5 sm:size-6 text-arastu-orange" />
                 </div>
                 <div>
-                  <p className="text-xl sm:text-2xl font-bold text-white">{badge.label}</p>
-                  <p className="text-sm text-gray-300">{badge.sublabel}</p>
+                  <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">{badge.label}</p>
+                  <p className="text-xs sm:text-sm text-gray-300">{badge.sublabel}</p>
                 </div>
               </div>
             ))}
@@ -124,7 +124,7 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-16 md:h-24 bg-gradient-to-t from-white to-transparent" />
     </section>
   );
 }

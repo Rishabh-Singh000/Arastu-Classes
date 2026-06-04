@@ -107,7 +107,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-white">
+    <section id="contact" className="py-10 sm:py-14 md:py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <motion.div
@@ -115,13 +115,13 @@ export default function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-arastu-dark mb-4">
+          <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             Contact <span className="text-arastu-orange">Us</span>
           </h2>
           <div className="w-24 h-1 bg-arastu-green mx-auto rounded-full" />
-          <p className="text-muted-foreground mt-4 text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Have questions? Get in touch with us and we&apos;ll be happy to help
           </p>
         </motion.div>
@@ -136,20 +136,20 @@ export default function ContactSection() {
             className="space-y-6"
           >
             {/* Contact Cards */}
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {contactInfo.map((info, index) => (
                 <Card key={index} className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                  <CardContent className="p-5">
+                  <CardContent className="p-3 sm:p-4 md:p-5">
                     <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-arastu-orange/10 flex items-center justify-center shrink-0">
-                        <info.icon className="size-5 text-arastu-orange" />
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-arastu-orange/10 flex items-center justify-center shrink-0">
+                        <info.icon className="size-4 sm:size-5 text-arastu-orange" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-arastu-dark text-sm">
+                        <h4 className="font-semibold text-arastu-dark text-xs sm:text-sm">
                           {info.title}
                         </h4>
                         {info.details.map((detail, i) => (
-                          <p key={i} className="text-xs text-muted-foreground mt-0.5">
+                          <p key={i} className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">
                             {detail}
                           </p>
                         ))}
@@ -161,7 +161,7 @@ export default function ContactSection() {
             </div>
 
             {/* Map Placeholder */}
-            <div className="w-full h-48 md:h-64 rounded-xl bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-200">
+            <div className="w-full h-40 sm:h-48 md:h-64 rounded-xl bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-200">
               <div className="text-center">
                 <MapPin className="size-10 text-arastu-orange mx-auto mb-2" />
                 <p className="font-semibold text-arastu-dark">Visit Our Center</p>
@@ -178,8 +178,8 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
           >
             <Card className="border-2 border-gray-100 shadow-lg h-full">
-              <CardContent className="p-6 md:p-8">
-                <h3 className="text-2xl font-bold text-arastu-dark mb-6">
+              <CardContent className="p-4 sm:p-5 md:p-6 md:p-8">
+                <h3 className="text-xl sm:text-2xl font-bold text-arastu-dark mb-6">
                   Send us a message
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -195,7 +195,7 @@ export default function ContactSection() {
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
-                      className={errors.name ? 'border-red-500' : ''}
+                      className={`h-12 sm:h-auto ${errors.name ? 'border-red-500' : ''}`}
                     />
                     {errors.name && (
                       <p className="text-sm text-red-500">{errors.name}</p>
@@ -215,7 +215,7 @@ export default function ContactSection() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className={errors.email ? 'border-red-500' : ''}
+                      className={`h-12 sm:h-auto ${errors.email ? 'border-red-500' : ''}`}
                     />
                     {errors.email && (
                       <p className="text-sm text-red-500">{errors.email}</p>
@@ -235,7 +235,7 @@ export default function ContactSection() {
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
-                      className={errors.phone ? 'border-red-500' : ''}
+                      className={`h-12 sm:h-auto ${errors.phone ? 'border-red-500' : ''}`}
                     />
                     {errors.phone && (
                       <p className="text-sm text-red-500">{errors.phone}</p>
@@ -255,7 +255,7 @@ export default function ContactSection() {
                       onChange={(e) =>
                         setFormData({ ...formData, message: e.target.value })
                       }
-                      className={`min-h-24 ${errors.message ? 'border-red-500' : ''}`}
+                      className={`min-h-[96px] sm:min-h-24 ${errors.message ? 'border-red-500' : ''}`}
                     />
                     {errors.message && (
                       <p className="text-sm text-red-500">{errors.message}</p>
@@ -266,7 +266,7 @@ export default function ContactSection() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-arastu-orange hover:bg-orange-600 text-white font-bold text-base py-6 shadow-lg shadow-arastu-orange/20"
+                    className="w-full bg-arastu-orange hover:bg-orange-600 text-white font-bold text-base h-12 sm:h-auto sm:py-6 shadow-lg shadow-arastu-orange/20"
                   >
                     <Send className="size-4 mr-2" />
                     {isSubmitting ? 'Sending...' : 'Send Message'}

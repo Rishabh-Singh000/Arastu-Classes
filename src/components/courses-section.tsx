@@ -47,7 +47,7 @@ const itemVariants = {
 
 export default function CoursesSection() {
   return (
-    <section id="courses" className="py-16 md:py-24 bg-white">
+    <section id="courses" className="py-10 sm:py-14 md:py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <motion.div
@@ -55,13 +55,13 @@ export default function CoursesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-arastu-dark mb-4">
+          <h2 className="mobile-h2 text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             Our Courses
           </h2>
           <div className="w-24 h-1 bg-arastu-green mx-auto rounded-full" />
-          <p className="text-muted-foreground mt-4 text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Expertly crafted courses for Sainik School and Navodaya Vidyalaya entrance exam preparation
           </p>
         </motion.div>
@@ -72,11 +72,11 @@ export default function CoursesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid md:grid-cols-2 gap-6 md:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
         >
           {courses.map((course, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Card className="group relative overflow-hidden border-2 hover:border-transparent transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 h-full">
+              <Card className="group relative overflow-hidden border-2 hover:border-transparent transition-all duration-300 hover:shadow-2xl lg:hover:-translate-y-1 h-full">
                 {/* Color accent bar */}
                 <div
                   className={`absolute top-0 left-0 right-0 h-1.5 ${
@@ -100,7 +100,7 @@ export default function CoursesSection() {
                       />
                     </div>
                     <div>
-                      <CardTitle className="text-xl font-bold text-arastu-dark leading-tight">
+                      <CardTitle className="text-base sm:text-lg md:text-xl font-bold text-arastu-dark leading-tight">
                         {course.title}
                       </CardTitle>
                       <CardDescription className="text-sm font-medium mt-1">
@@ -127,7 +127,7 @@ export default function CoursesSection() {
                   </ul>
                   <Button
                     variant="outline"
-                    className={`group/btn w-full font-semibold transition-all ${
+                    className={`group/btn w-full font-semibold min-h-[48px] transition-all ${
                       course.color === 'arastu-orange'
                         ? 'border-arastu-orange text-arastu-orange hover:bg-arastu-orange hover:text-white'
                         : 'border-arastu-green text-arastu-green hover:bg-arastu-green hover:text-white'

@@ -6,7 +6,6 @@ import { CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -84,9 +83,9 @@ export default function DemoSection() {
   };
 
   return (
-    <section id="demo" className="py-16 md:py-24 bg-white">
+    <section id="demo" className="py-10 sm:py-14 md:py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
           {/* Left Column - Info */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -96,11 +95,11 @@ export default function DemoSection() {
           >
             <Card className="border-0 shadow-xl bg-gradient-to-br from-arastu-dark to-arastu-dark/95 text-white overflow-hidden relative">
               <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-arastu-green" />
-              <CardContent className="p-8 md:p-10">
-                <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              <CardContent className="p-5 sm:p-6 md:p-8 lg:p-10">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                   Book a <span className="text-arastu-orange">FREE</span> Demo Session
                 </h2>
-                <p className="text-gray-300 mb-8 text-lg leading-relaxed">
+                <p className="text-gray-300 mb-8 text-sm sm:text-base md:text-lg leading-relaxed">
                   Experience our world-class coaching before making a decision. Our free
                   demo class will give you a clear picture of our teaching methodology,
                   study material quality, and expert guidance.
@@ -112,7 +111,7 @@ export default function DemoSection() {
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <CheckCircle className="size-5 text-arastu-green shrink-0" />
-                      <span className="text-gray-200">{benefit}</span>
+                      <span className="text-sm sm:text-base text-gray-200">{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -135,25 +134,27 @@ export default function DemoSection() {
             transition={{ duration: 0.6 }}
           >
             <Card className="border-2 border-gray-100 shadow-lg">
-              <CardContent className="p-6 md:p-8">
-                <h3 className="text-2xl font-bold text-arastu-dark mb-6">
+              <CardContent className="p-4 sm:p-5 md:p-6 lg:p-8">
+                <h3 className="text-xl sm:text-2xl font-bold text-arastu-dark mb-6">
                   Fill in your details
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Name */}
                   <div className="space-y-2">
-                    <Label htmlFor="demo-name" className="text-arastu-dark font-medium">
+                    <Label htmlFor="demo-name" className="text-sm text-arastu-dark font-medium">
                       Full Name <span className="text-red-500">*</span>
                     </Label>
-                    <Input
-                      id="demo-name"
-                      placeholder="Enter your full name"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      className={errors.name ? 'border-red-500' : ''}
-                    />
+                    <div className="mobile-input">
+                      <Input
+                        id="demo-name"
+                        placeholder="Enter your full name"
+                        value={formData.name}
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
+                        className={errors.name ? 'border-red-500' : ''}
+                      />
+                    </div>
                     {errors.name && (
                       <p className="text-sm text-red-500">{errors.name}</p>
                     )}
@@ -161,19 +162,21 @@ export default function DemoSection() {
 
                   {/* Phone */}
                   <div className="space-y-2">
-                    <Label htmlFor="demo-phone" className="text-arastu-dark font-medium">
+                    <Label htmlFor="demo-phone" className="text-sm text-arastu-dark font-medium">
                       Phone Number <span className="text-red-500">*</span>
                     </Label>
-                    <Input
-                      id="demo-phone"
-                      type="tel"
-                      placeholder="Enter 10-digit phone number"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
-                      className={errors.phone ? 'border-red-500' : ''}
-                    />
+                    <div className="mobile-input">
+                      <Input
+                        id="demo-phone"
+                        type="tel"
+                        placeholder="Enter 10-digit phone number"
+                        value={formData.phone}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone: e.target.value })
+                        }
+                        className={errors.phone ? 'border-red-500' : ''}
+                      />
+                    </div>
                     {errors.phone && (
                       <p className="text-sm text-red-500">{errors.phone}</p>
                     )}
@@ -181,19 +184,21 @@ export default function DemoSection() {
 
                   {/* Email */}
                   <div className="space-y-2">
-                    <Label htmlFor="demo-email" className="text-arastu-dark font-medium">
+                    <Label htmlFor="demo-email" className="text-sm text-arastu-dark font-medium">
                       Email Address <span className="text-red-500">*</span>
                     </Label>
-                    <Input
-                      id="demo-email"
-                      type="email"
-                      placeholder="Enter your email address"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className={errors.email ? 'border-red-500' : ''}
-                    />
+                    <div className="mobile-input">
+                      <Input
+                        id="demo-email"
+                        type="email"
+                        placeholder="Enter your email address"
+                        value={formData.email}
+                        onChange={(e) =>
+                          setFormData({ ...formData, email: e.target.value })
+                        }
+                        className={errors.email ? 'border-red-500' : ''}
+                      />
+                    </div>
                     {errors.email && (
                       <p className="text-sm text-red-500">{errors.email}</p>
                     )}
@@ -201,25 +206,27 @@ export default function DemoSection() {
 
                   {/* Course Select */}
                   <div className="space-y-2">
-                    <Label className="text-arastu-dark font-medium">
+                    <Label className="text-sm text-arastu-dark font-medium">
                       Select Course <span className="text-red-500">*</span>
                     </Label>
-                    <Select
-                      value={formData.course}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, course: value })
-                      }
-                    >
-                      <SelectTrigger className={`w-full ${errors.course ? 'border-red-500' : ''}`}>
-                        <SelectValue placeholder="Choose a course" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="sainik-6">Sainik School - Class 6th</SelectItem>
-                        <SelectItem value="sainik-9">Sainik School - Class 9th</SelectItem>
-                        <SelectItem value="jnv-6">JNV - Class 6th</SelectItem>
-                        <SelectItem value="jnv-9">JNV - Class 9th</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div className="mobile-input">
+                      <Select
+                        value={formData.course}
+                        onValueChange={(value) =>
+                          setFormData({ ...formData, course: value })
+                        }
+                      >
+                        <SelectTrigger className={`w-full ${errors.course ? 'border-red-500' : ''}`}>
+                          <SelectValue placeholder="Choose a course" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="sainik-6">Sainik School - Class 6th</SelectItem>
+                          <SelectItem value="sainik-9">Sainik School - Class 9th</SelectItem>
+                          <SelectItem value="jnv-6">JNV - Class 6th</SelectItem>
+                          <SelectItem value="jnv-9">JNV - Class 9th</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                     {errors.course && (
                       <p className="text-sm text-red-500">{errors.course}</p>
                     )}
@@ -227,23 +234,25 @@ export default function DemoSection() {
 
                   {/* Class Select */}
                   <div className="space-y-2">
-                    <Label className="text-arastu-dark font-medium">
+                    <Label className="text-sm text-arastu-dark font-medium">
                       Select Class <span className="text-red-500">*</span>
                     </Label>
-                    <Select
-                      value={formData.class}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, class: value })
-                      }
-                    >
-                      <SelectTrigger className={`w-full ${errors.class ? 'border-red-500' : ''}`}>
-                        <SelectValue placeholder="Choose your class" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="6">Class 6th</SelectItem>
-                        <SelectItem value="9">Class 9th</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div className="mobile-input">
+                      <Select
+                        value={formData.class}
+                        onValueChange={(value) =>
+                          setFormData({ ...formData, class: value })
+                        }
+                      >
+                        <SelectTrigger className={`w-full ${errors.class ? 'border-red-500' : ''}`}>
+                          <SelectValue placeholder="Choose your class" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="6">Class 6th</SelectItem>
+                          <SelectItem value="9">Class 9th</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                     {errors.class && (
                       <p className="text-sm text-red-500">{errors.class}</p>
                     )}
@@ -252,7 +261,7 @@ export default function DemoSection() {
                   {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full bg-arastu-orange hover:bg-orange-600 text-white font-bold text-base py-6 shadow-lg shadow-arastu-orange/20"
+                    className="w-full h-12 sm:h-auto bg-arastu-orange hover:bg-orange-600 text-white font-bold text-base py-6 shadow-lg shadow-arastu-orange/20"
                   >
                     Book Demo
                   </Button>

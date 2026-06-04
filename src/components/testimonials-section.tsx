@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -10,6 +10,7 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  useCarousel,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
@@ -52,12 +53,51 @@ const testimonials = [
   },
 ];
 
+function CarouselDots({ totalItems }: { totalItems: number }) {
+  const { api } = useCarousel();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const handleSelect = () => {
+      setCurrentIndex(api.selectedScrollSnap());
+    };
+
+    queueMicrotask(() => {
+      setCurrentIndex(api.selectedScrollSnap());
+    });
+    api.on('select', handleSelect);
+    api.on('reInit', handleSelect);
+    return () => {
+      api.off('select', handleSelect);
+    };
+  }, [api]);
+
+  return (
+    <div className="flex justify-center gap-2 mt-6 md:hidden">
+      {Array.from({ length: totalItems }).map((_, index) => (
+        <button
+          key={index}
+          onClick={() => api?.scrollTo(index)}
+          className={`w-2.5 h-2.5 rounded-full transition-all ${
+            currentIndex === index
+              ? 'bg-arastu-orange w-6'
+              : 'bg-gray-300'
+          }`}
+          aria-label={`Go to testimonial ${index + 1}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function TestimonialsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
 
   return (
-    <section className="py-16 md:py-24 bg-arastu-light">
+    <section className="py-10 sm:py-14 md:py-16 lg:py-24 bg-arastu-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         {/* Section Title */}
         <motion.div
@@ -65,13 +105,13 @@ export default function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-arastu-dark mb-4">
+          <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             Our <span className="text-arastu-orange">Success Stories</span>
           </h2>
           <div className="w-24 h-1 bg-arastu-green mx-auto rounded-full" />
-          <p className="text-muted-foreground mt-4 text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Hear from students who achieved their dreams with Arastu Classes
           </p>
         </motion.div>
@@ -100,10 +140,10 @@ export default function TestimonialsSection() {
               {testimonials.map((testimonial, index) => (
                 <CarouselItem
                   key={index}
-                  className="pl-4 md:basis-1/2 lg:basis-1/3"
+                  className="pl-4 basis-full md:basis-1/2 lg:basis-1/3"
                 >
                   <Card className="h-full border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
-                    <CardContent className="p-6">
+                    <CardContent className="p-5 sm:p-6">
                       {/* Quote Icon */}
                       <Quote className="size-8 text-arastu-orange/20 mb-3" />
 
@@ -112,7 +152,7 @@ export default function TestimonialsSection() {
                         {Array.from({ length: 5 }).map((_, i) => (
                           <Star
                             key={i}
-                            className={`size-4 ${
+                            className={`size-3.5 sm:size-4 ${
                               i < testimonial.rating
                                 ? 'fill-arastu-gold text-arastu-gold'
                                 : 'fill-gray-200 text-gray-200'
@@ -122,7 +162,7 @@ export default function TestimonialsSection() {
                       </div>
 
                       {/* Quote Text */}
-                      <p className="text-sm text-arastu-dark/80 leading-relaxed mb-6">
+                      <p className="text-sm sm:text-base text-arastu-dark/80 leading-relaxed mb-6">
                         &ldquo;{testimonial.text}&rdquo;
                       </p>
 
@@ -140,7 +180,7 @@ export default function TestimonialsSection() {
                           <p className="text-sm font-semibold text-arastu-dark">
                             {testimonial.name}
                           </p>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-sm text-muted-foreground">
                             {testimonial.exam}
                           </p>
                         </div>
@@ -152,6 +192,7 @@ export default function TestimonialsSection() {
             </CarouselContent>
             <CarouselPrevious className="hidden md:flex -left-12 top-1/3" />
             <CarouselNext className="hidden md:flex -right-12 top-1/3" />
+            <CarouselDots totalItems={testimonials.length} />
           </Carousel>
         </motion.div>
       </div>

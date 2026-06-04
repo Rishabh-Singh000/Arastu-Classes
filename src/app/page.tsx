@@ -10,12 +10,14 @@ import TestimonialsSection from '@/components/testimonials-section';
 import StatsSection from '@/components/stats-section';
 import ContactSection from '@/components/contact-section';
 import Footer from '@/components/footer';
+import FloatingButtons from '@/components/floating-buttons';
+import MobileBottomBar from '@/components/mobile-bottom-bar';
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 mobile-bottom-offset pb-16 md:pb-0">
         <HeroSection />
         <CoursesSection />
         <FeaturesSection />
@@ -28,6 +30,8 @@ export default function Home() {
         <ContactSection />
       </main>
       <Footer />
+      <FloatingButtons />
+      <MobileBottomBar />
     </div>
   );
 }

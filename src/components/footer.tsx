@@ -28,36 +28,38 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="bg-arastu-dark text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
           {/* Column 1: Logo & Social */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Image
-                src="/logo.png"
-                alt="Arastu Classes Logo"
-                width={36}
-                height={36}
-                className="object-contain"
-              />
-              <div>
-                <p className="text-lg font-bold text-white">Arastu Classes</p>
-                <p className="text-xs text-arastu-green font-medium">
-                  Sainik & Navodaya Coaching
-                </p>
+          <div className="text-center sm:text-left">
+            <div className="flex flex-col items-center sm:items-start gap-2 mb-4">
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/logo.png"
+                  alt="Arastu Classes Logo"
+                  width={36}
+                  height={36}
+                  className="object-contain"
+                />
+                <div>
+                  <p className="text-lg font-bold text-white">Arastu Classes</p>
+                  <p className="text-xs text-arastu-green font-medium">
+                    Sainik & Navodaya Coaching
+                  </p>
+                </div>
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
               India&apos;s premier coaching institute for Sainik School and Jawahar
               Navodaya Vidyalaya entrance exams. Building futures since 2020.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center sm:justify-start">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-lg bg-white/10 hover:bg-arastu-orange flex items-center justify-center transition-colors"
+                  className="w-11 h-11 sm:w-10 sm:h-10 rounded-lg bg-white/10 hover:bg-arastu-orange flex items-center justify-center transition-colors"
                 >
                   <social.icon className="size-4 text-white" />
                 </a>
@@ -66,8 +68,8 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Quick Links */}
-          <div>
-            <h3 className="text-base font-bold text-white mb-4">Quick Links</h3>
+          <div className="text-center sm:text-left">
+            <h3 className="text-sm sm:text-base font-bold text-white mb-4">Quick Links</h3>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
@@ -83,8 +85,8 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Courses */}
-          <div>
-            <h3 className="text-base font-bold text-white mb-4">Courses</h3>
+          <div className="text-center sm:text-left">
+            <h3 className="text-sm sm:text-base font-bold text-white mb-4">Courses</h3>
             <ul className="space-y-3">
               {courseLinks.map((link, index) => (
                 <li key={index}>
@@ -100,20 +102,20 @@ export default function Footer() {
           </div>
 
           {/* Column 4: Contact Info */}
-          <div>
-            <h3 className="text-base font-bold text-white mb-4">Contact Info</h3>
+          <div className="text-center sm:text-left">
+            <h3 className="text-sm sm:text-base font-bold text-white mb-4">Contact Info</h3>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3 sm:justify-start justify-center">
                 <MapPin className="size-4 text-arastu-orange shrink-0 mt-0.5" />
                 <span className="text-sm text-gray-400">
                   Arastu Classes Building, Main Road, Near Bus Stand, District - 250001
                 </span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 sm:justify-start justify-center">
                 <Phone className="size-4 text-arastu-orange shrink-0" />
                 <span className="text-sm text-gray-400">+91 98765 43210</span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 sm:justify-start justify-center">
                 <Mail className="size-4 text-arastu-orange shrink-0" />
                 <span className="text-sm text-gray-400">info@arastuclasses.com</span>
               </li>
@@ -124,7 +126,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-sm text-gray-500">
               Copyright &copy; 2025 Arastu Classes. All Rights Reserved.

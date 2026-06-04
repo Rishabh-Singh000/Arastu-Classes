@@ -84,7 +84,7 @@ function AnimatedCounter({
   }, [animateCount]);
 
   return (
-    <span className="text-4xl md:text-5xl font-extrabold text-white">
+    <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white">
       {inView ? count.toLocaleString() : '0'}
       {suffix}
     </span>
@@ -96,7 +96,7 @@ export default function ResultsSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="results" ref={ref} className="py-16 md:py-24 relative overflow-hidden">
+    <section id="results" ref={ref} className="py-10 sm:py-14 md:py-16 lg:py-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-arastu-green via-green-800 to-arastu-dark" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNnKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==')] opacity-50" />
@@ -108,13 +108,13 @@ export default function ResultsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             Record Breaking <span className="text-arastu-gold">Results</span>
           </h2>
           <div className="w-24 h-1 bg-arastu-gold mx-auto rounded-full" />
-          <p className="text-green-100 mt-4 text-lg max-w-2xl mx-auto">
+          <p className="text-green-100 mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Our students consistently achieve top ranks in both Sainik School and JNV
             entrance exams
           </p>
@@ -126,18 +126,18 @@ export default function ResultsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 mb-10 sm:mb-12 md:mb-16"
         >
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20"
+              className="text-center p-4 sm:p-5 md:p-6 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20"
             >
-              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-3">
                 <stat.icon className="size-6 text-arastu-gold" />
               </div>
               <AnimatedCounter value={stat.value} suffix={stat.suffix} inView={isInView} />
-              <p className="text-green-100 text-sm mt-2 font-medium">{stat.label}</p>
+              <p className="text-green-100 text-xs sm:text-sm mt-2 font-medium">{stat.label}</p>
             </div>
           ))}
         </motion.div>
@@ -149,16 +149,16 @@ export default function ResultsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h3 className="text-center text-2xl font-bold text-white mb-8">
+          <h3 className="text-center text-xl sm:text-2xl font-bold text-white mb-8">
             🏆 Recent Toppers
           </h3>
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-4">
             {toppers.map((topper, index) => (
               <Card
                 key={index}
-                className="min-w-[220px] sm:min-w-[260px] shrink-0 border border-white/20 bg-white/10 backdrop-blur-sm"
+                className="min-w-[200px] sm:min-w-[220px] md:min-w-[260px] shrink-0 snap-start border border-white/20 bg-white/10 backdrop-blur-sm"
               >
-                <CardContent className="p-5 text-center">
+                <CardContent className="p-4 sm:p-5 text-center">
                   {/* Avatar */}
                   <div
                     className={`w-16 h-16 rounded-full mx-auto mb-3 flex items-center justify-center text-xl font-bold text-white ${

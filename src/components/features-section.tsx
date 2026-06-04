@@ -65,7 +65,7 @@ const itemVariants = {
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="py-16 md:py-24 bg-arastu-light">
+    <section id="features" className="py-10 sm:py-14 md:py-16 lg:py-24 bg-arastu-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <motion.div
@@ -73,13 +73,13 @@ export default function FeaturesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-arastu-dark mb-4">
+          <h2 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-arastu-dark mb-4">
             Why Choose <span className="text-arastu-orange">Arastu Classes?</span>
           </h2>
           <div className="w-24 h-1 bg-arastu-green mx-auto rounded-full" />
-          <p className="text-muted-foreground mt-4 text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground mt-4 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             We provide everything your child needs to crack the toughest entrance exams
           </p>
         </motion.div>
@@ -90,16 +90,16 @@ export default function FeaturesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
         >
           {features.map((feature, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Card className="group h-full border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
-                <CardContent className="p-6">
-                  <div className="w-14 h-14 rounded-full bg-arastu-orange/10 flex items-center justify-center mb-4 group-hover:bg-arastu-orange/20 transition-colors">
+              <Card className="group h-full border-0 shadow-md hover:shadow-xl transition-all duration-300 lg:hover:-translate-y-1 bg-white">
+                <CardContent className="p-5 sm:p-6">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-arastu-orange/10 flex items-center justify-center mb-4 group-hover:bg-arastu-orange/20 transition-colors">
                     <feature.icon className="size-7 text-arastu-orange" />
                   </div>
-                  <h3 className="text-lg font-bold text-arastu-dark mb-2">
+                  <h3 className="text-base sm:text-lg font-bold text-arastu-dark mb-2">
                     {feature.title}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
